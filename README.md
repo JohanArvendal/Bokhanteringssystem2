@@ -1,4 +1,4 @@
-In order to use this project. You must have a local database in Microsoft SQL Server Management studio.
+In order to use this project. You must have a local database in Microsoft SQL Server Management Studio.
 Name your local database: "Bokhanteringsdatabas".
 
 Use this SQL code to create the tables: 
