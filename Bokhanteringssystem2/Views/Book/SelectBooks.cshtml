@@ -1,0 +1,38 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@model IEnumerable<Bokhanteringssystem2.Models.BookDetails>
+
+@{
+    ViewData["Title"] = "Select Books";
+}
+
+<h2>Select Books</h2>
+
+@if (ViewBag.error != null)
+{
+    <p style="color:red;">@ViewBag.error</p>
+}
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Book ID</th>
+            <th>Title</th>
+            <th>Published Year</th>
+            <th>Author Name</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var book in Model)
+        {
+            <tr>
+                <td>@book.BookID</td>
+                <td>@book.Title</td>
+                <td>@book.PublishedYear</td>
+                <td>@book.Author?.Name</td> <!-- Null check för säkerhet -->
+            </tr>
+        }
+    </tbody>
+</table>
+

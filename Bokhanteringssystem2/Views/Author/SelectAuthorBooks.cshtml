@@ -1,0 +1,29 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@model IEnumerable<Bokhanteringssystem2.Models.AuthorDetails>
+
+@{
+    ViewData["Title"] = "Select Author's Books";
+}
+
+<h2>Select Author's Books</h2>
+
+@if (ViewBag.Error != null)
+{
+    <p style="color:red;">@ViewBag.Error</p>
+}
+
+<form asp-action="SelectAuthorBooks" method="post">
+    <div>
+        <label for="authorId">Select Author:</label>
+        <select id="authorId" name="authorId" required>
+            <option value="">--Select an Author--</option>
+            @foreach (var author in Model)
+            {
+                <option value="@author.AuthorID">@author.Name</option>
+            }
+        </select>
+    </div>
+    <button type="submit">View Books</button>
+</form>

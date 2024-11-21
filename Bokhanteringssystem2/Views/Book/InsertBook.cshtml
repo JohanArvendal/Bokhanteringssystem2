@@ -1,0 +1,36 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@model IEnumerable<Bokhanteringssystem2.Models.BookDetails>
+@{
+    ViewData["Title"] = "Insert Book";
+}
+
+<h2>Insert Book</h2>
+
+@if (ViewBag.Error != null)
+{
+    <p style="color:red;">@ViewBag.Error</p>
+}
+
+@if (ViewBag.Message != null)
+{
+    <p style="color:green;">@ViewBag.Message</p>
+}
+
+<form asp-action="InsertBook" method="post">
+    <div>
+        <label for="bookTitle">Book Title:</label>
+        <input type="text" id="bookTitle" name="bookTitle" required />
+    </div>
+    <div>
+        <label for="publishedYear">Published Year:</label>
+        <input type="number" id="publishedYear" name="publishedYear" required />
+    </div>
+    <div>
+        <label for="authorName">Author Name:</label>
+        <input type="text" id="authorName" name="authorName" required />
+    </div>
+    <button type="submit">Add Book</button>
+</form>
+
