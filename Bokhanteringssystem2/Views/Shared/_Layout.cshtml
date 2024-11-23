@@ -10,7 +10,7 @@
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+        <nav class="navbar navbar-expand-sm navbar-dark bg-dark-blue border-bottom box-shadow mb-3">
             <div class="container-fluid">
                 <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Bokhanteringssystem2</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
@@ -20,29 +20,29 @@
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                            <a class="nav-link text-light" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                            <a class="nav-link text-light" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="@Url.Action("SelectBooks", "Book")">View All Books</a>
+                            <a class="nav-link text-light" href="@Url.Action("SelectBooks", "Book")">View All Books</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="@Url.Action("SelectAuthors", "Author")">View All Authors</a>
+                            <a class="nav-link text-light" href="@Url.Action("SelectAuthors", "Author")">View All Authors</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="@Url.Action("InsertBook", "Book")">Insert New Book</a>
+                            <a class="nav-link text-light" href="@Url.Action("InsertBook", "Book")">Insert New Book</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="@Url.Action("SelectAuthorBooks", "Author")">Books by Author</a>
+                            <a class="nav-link text-light" href="@Url.Action("SelectAuthorBooks", "Author")">Books by Author</a>
                         </li>
                     </ul>
                 </div>
             </div>
         </nav>
     </header>
-    <div class="container">
+    <div class="container bg-light-blue">
         <main role="main" class="pb-3">
             @RenderBody()
         </main>

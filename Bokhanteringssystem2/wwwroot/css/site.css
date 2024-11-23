@@ -1,22 +1,71 @@
 html {
-  font-size: 14px;
+    font-size: 14px;
 }
 
 @media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
+    html {
+        font-size: 16px;
+    }
 }
 
 .btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
-  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+    box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
 }
 
 html {
-  position: relative;
-  min-height: 100%;
+    position: relative;
+    min-height: 100%;
 }
 
 body {
-  margin-bottom: 60px;
+    margin-bottom: 60px;
 }
+
+/* Anpassningar för färgtemat */
+
+/* Header-färg (Mörkblå) */
+.bg-dark-blue {
+    background-color: #003366; /* Mörkblå */
+    color: white; /* Vit text */
+}
+
+/* Sidans bakgrundsfärg (Ljusblå) */
+.bg-light-blue {
+    background-color: #e6f2ff; /* Ljusblå */
+    min-height: 100vh; /* För att sidan fyller hela höjden */
+    padding: 20px; /* Marginal för innehåll */
+}
+
+/* Navigation - länkar */
+.navbar-nav .nav-link {
+    font-weight: bold;
+    transition: color 0.3s; /* Smidig övergång för hovring */
+}
+
+    .navbar-nav .nav-link:hover {
+        color: #ffcc00; /* Gul färg vid hovring */
+    }
+
+/* Footer-stil */
+footer {
+    background-color: #003366; /* Mörkblå */
+    color: white;
+    padding: 10px 0;
+    text-align: center;
+}
+
+/* Knappar */
+button {
+    background-color: #003366;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 1rem;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+    button:hover {
+        background-color: #001f4d; /* Mörkare blå vid hovring */
+    }
