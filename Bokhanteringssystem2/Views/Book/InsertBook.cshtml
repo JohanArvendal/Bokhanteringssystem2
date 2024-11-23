@@ -10,27 +10,35 @@
 
 @if (ViewBag.Error != null)
 {
-    <p style="color:red;">@ViewBag.Error</p>
+    <div class="alert alert-danger">@ViewBag.Error</div>
 }
 
 @if (ViewBag.Message != null)
 {
-    <p style="color:green;">@ViewBag.Message</p>
+    <div class="alert alert-success">@ViewBag.Message</div>
 }
 
-<form asp-action="InsertBook" method="post">
-    <div>
-        <label for="bookTitle">Book Title:</label>
-        <input type="text" id="bookTitle" name="bookTitle" required />
+<div class="card mt-4">
+    <div class="card-header bg-dark-blue text-white">
+        Add a New Book
     </div>
-    <div>
-        <label for="publishedYear">Published Year:</label>
-        <input type="number" id="publishedYear" name="publishedYear" required />
+    <div class="card-body bg-light-blue">
+        <form asp-action="InsertBook" method="post" class="needs-validation">
+            <div class="mb-3">
+                <label for="bookTitle" class="form-label">Book Title:</label>
+                <input type="text" id="bookTitle" name="bookTitle" class="form-control" required />
+            </div>
+            <div class="mb-3">
+                <label for="publishedYear" class="form-label">Published Year:</label>
+                <input type="number" id="publishedYear" name="publishedYear" class="form-control" required />
+            </div>
+            <div class="mb-3">
+                <label for="authorName" class="form-label">Author Name:</label>
+                <input type="text" id="authorName" name="authorName" class="form-control" required />
+            </div>
+            <button type="submit" class="btn btn-primary">Add Book</button>
+        </form>
     </div>
-    <div>
-        <label for="authorName">Author Name:</label>
-        <input type="text" id="authorName" name="authorName" required />
-    </div>
-    <button type="submit">Add Book</button>
-</form>
+</div>
+
 
