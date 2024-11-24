@@ -48,7 +48,7 @@ namespace Bokhanteringssystem2.Models
 
             return rowsAffected;  // Returnera antalet påverkade rader
         }
-        public List<BookDetails> GetBookDetailsList(out string errormessage)
+        public List<BookDetails> GetBookList(out string errormessage)
         {
             SqlConnection sqlConnection = new SqlConnection("Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=Bokhanteringsdatabas;Integrated Security=True;Pooling=False;Encrypt=True;TrustServerCertificate=False"); 
 

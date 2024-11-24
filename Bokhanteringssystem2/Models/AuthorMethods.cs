@@ -72,12 +72,12 @@ namespace Bokhanteringssystem2.Models
 
             return newAuthorID;
         }
-        public List<AuthorDetails> GetAllAuthors(out string errorMessage)
+        public List<AuthorDetails> GetAuthorList(out string errorMessage)
         {
             errorMessage = string.Empty;
             List<AuthorDetails> authorsList = new List<AuthorDetails>();
 
-            using (SqlConnection sqlConnection = new SqlConnection("Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=Bokhanteringsdatabas;Integrated Security=True"))
+            using (SqlConnection sqlConnection = new SqlConnection("Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=Bokhanteringsdatabas;Integrated Security=True;Pooling=False;Encrypt=True;TrustServerCertificate=False"))
             {
                 string sqlQuery = "SELECT AuthorID, Name FROM Authors";
 
@@ -111,43 +111,5 @@ namespace Bokhanteringssystem2.Models
 
             return authorsList;
         }
-
-        public List<AuthorDetails> GetAuthorDetailsList(out string errorMessage)
-        {
-            errorMessage = string.Empty;
-            List<AuthorDetails> authorDetailsList = new List<AuthorDetails>();
-
-            using (SqlConnection sqlConnection = new SqlConnection("Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=Bokhanteringsdatabas;Integrated Security=True;Pooling=False;Encrypt=True;TrustServerCertificate=False"))
-            {
-                string sqlQuery = "SELECT AuthorID, Name FROM Authors";
-
-                using (SqlCommand command = new SqlCommand(sqlQuery, sqlConnection))
-                {
-                    try
-                    {
-                        sqlConnection.Open();
-                        using (SqlDataReader reader = command.ExecuteReader())
-                        {
-                            while (reader.Read())
-                            {
-                                authorDetailsList.Add(new AuthorDetails
-                                {
-                                    AuthorID = Convert.ToInt32(reader["AuthorID"]),
-                                    Name = reader["Name"].ToString()
-                                });
-                            }
-                        }
-                    }
-                    catch (Exception ex)
-                    {
-                        errorMessage = $"Error retrieving authors: {ex.Message}";
-                    }
-                }
-            }
-
-            return authorDetailsList;
-        }
-
-
     }
 }

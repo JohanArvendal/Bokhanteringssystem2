@@ -75,7 +75,7 @@ namespace Bokhanteringssystem2.Controllers
             string error = string.Empty;
 
             // Hämta listan med böcker
-            var result = bookMethods.GetBookDetailsList(out error);
+            var result = bookMethods.GetBookList(out error);
 
             if (result != null)
             {

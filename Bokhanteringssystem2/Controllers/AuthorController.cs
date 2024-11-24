@@ -15,7 +15,7 @@ namespace Bokhanteringssystem2.Controllers
             AuthorMethods authorMethods = new AuthorMethods();
             string errorMessage;
 
-            List<AuthorDetails> authors = authorMethods.GetAllAuthors(out errorMessage);
+            List<AuthorDetails> authors = authorMethods.GetAuthorList(out errorMessage);
 
             if (!string.IsNullOrEmpty(errorMessage))
             {
@@ -33,7 +33,7 @@ namespace Bokhanteringssystem2.Controllers
             string errorMessage;
 
             // Hämta alla författare för dropdown-listan
-            var authors = authorMethods.GetAllAuthors(out errorMessage);
+            var authors = authorMethods.GetAuthorList(out errorMessage);
 
             if (!string.IsNullOrEmpty(errorMessage))
             {
@@ -49,7 +49,7 @@ namespace Bokhanteringssystem2.Controllers
             AuthorMethods authorMethods = new AuthorMethods();
             BookMethods bookMethods = new BookMethods();
 
-            var author = authorMethods.GetAuthorDetailsList(out string errorMessage)
+            var author = authorMethods.GetAuthorList(out string errorMessage)
                                       .FirstOrDefault(a => a.AuthorID == authorId);
 
             if (author == null)
@@ -78,7 +78,7 @@ namespace Bokhanteringssystem2.Controllers
             AuthorMethods authorMethods = new AuthorMethods();
             string errorMessage;
 
-            var authors = authorMethods.GetAuthorDetailsList(out errorMessage);
+            var authors = authorMethods.GetAuthorList(out errorMessage);
             ViewBag.Error = errorMessage;
 
             return View(authors);
