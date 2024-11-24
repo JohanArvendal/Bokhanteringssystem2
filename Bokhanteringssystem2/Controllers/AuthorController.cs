@@ -84,6 +84,36 @@ namespace Bokhanteringssystem2.Controllers
             return View(authors);
         }
 
+        [HttpGet]
+        public IActionResult InsertAuthor()
+        {
+            return View("InsertAuthor"); // Visa ett formulär för att lägga till en författare
+        }
+
+        [HttpPost]
+        public IActionResult InsertAuthor(AuthorDetails authorDetails)
+        {
+            if (string.IsNullOrEmpty(authorDetails.Name))
+            {
+                ViewBag.Error = "Author name cannot be empty.";
+                return View("InsertAuthor",authorDetails);
+            }
+
+            AuthorMethods authorMethods = new AuthorMethods();
+            string errorMessage;
+            int newAuthorID = authorMethods.InsertAuthor(authorDetails, out errorMessage);
+
+            if (!string.IsNullOrEmpty(errorMessage))
+            {
+                ViewBag.Error = errorMessage;
+                return View("InsertAuthor",authorDetails);
+            }
+
+            ViewBag.Success = $"Author added successfully with ID {newAuthorID}.";
+            return View();
+        }
+
+
 
     }
 }

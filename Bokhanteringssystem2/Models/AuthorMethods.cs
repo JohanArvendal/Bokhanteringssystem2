@@ -40,7 +40,6 @@ namespace Bokhanteringssystem2.Models
             return authorID;
         }
 
-
         public int InsertAuthor(AuthorDetails authorDetails, out string errorMessage)
         {
             errorMessage = string.Empty;
@@ -72,6 +71,7 @@ namespace Bokhanteringssystem2.Models
 
             return newAuthorID;
         }
+
         public List<AuthorDetails> GetAuthorList(out string errorMessage)
         {
             errorMessage = string.Empty;

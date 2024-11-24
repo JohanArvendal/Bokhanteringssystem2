@@ -1,0 +1,26 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@model Bokhanteringssystem2.Models.AuthorDetails
+
+<h2>Insert New Author</h2>
+
+@if (!string.IsNullOrEmpty(ViewBag.Error))
+{
+    <div class="alert alert-danger">@ViewBag.Error</div> <!-- Felmeddelande -->
+}
+
+@if (!string.IsNullOrEmpty(ViewBag.Success))
+{
+    <div class="alert alert-success">@ViewBag.Success</div> <!-- Framgångsmeddelande -->
+}
+
+<form asp-action="InsertAuthor" method="post">
+    <div class="mb-3">
+        <label for="Name" class="form-label">Author Name:</label>
+        <input type="text" id="Name" name="Name" class="form-control" value="@Model?.Name" />
+    </div>
+    <button type="submit" class="btn btn-primary">Add Author</button>
+</form>
+
+
