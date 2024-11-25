@@ -10,22 +10,6 @@ namespace Bokhanteringssystem2.Controllers
             return View();
         }
 
-        public IActionResult GetAllAuthors()
-        {
-            AuthorMethods authorMethods = new AuthorMethods();
-            string errorMessage;
-
-            List<AuthorDetails> authors = authorMethods.GetAuthorList(out errorMessage);
-
-            if (!string.IsNullOrEmpty(errorMessage))
-            {
-                ViewBag.Error = errorMessage;
-                return View(new List<AuthorDetails>()); // Returnera tom lista om det finns ett fel
-            }
-
-            return View(authors);
-        }
-
         [HttpGet]
         public IActionResult SelectAuthorBooks()
         {
@@ -113,6 +97,43 @@ namespace Bokhanteringssystem2.Controllers
             return View();
         }
 
+        [HttpGet]
+        public IActionResult SelectAuthor(int authorID)
+        {
+            AuthorMethods authorMethods = new AuthorMethods();
+            string errorMessage;
+
+            var author = authorMethods.GetAuthor(authorID, out errorMessage);
+            ViewBag.Error = errorMessage;
+
+            return View(author);
+        }
+
+        [HttpPost]
+        public IActionResult UpdateAuthor(AuthorDetails authorDetails)
+        {
+            // Validera input
+            if (authorDetails == null || string.IsNullOrEmpty(authorDetails.Name) || authorDetails.AuthorID <= 0)
+            {
+                ViewBag.Error = "Invalid author details. Please provide a valid Author ID and Name.";
+                return View("SelectAuthor", authorDetails);
+            }
+
+            AuthorMethods authorMethods = new AuthorMethods();
+            string errorMessage;
+            AuthorDetails updatedAuthor = authorMethods.UpdateAuthor(authorDetails, out errorMessage);
+
+            // Kontrollera om uppdateringen lyckades
+            if (!string.IsNullOrEmpty(errorMessage))
+            {
+                ViewBag.Error = errorMessage;
+                return View("SelectAuthor", authorDetails);
+            }
+
+            // Visa ett framgångsmeddelande
+            ViewBag.Success = "Author updated successfully.";
+            return View("SelectAuthor", updatedAuthor);
+        }
 
 
     }

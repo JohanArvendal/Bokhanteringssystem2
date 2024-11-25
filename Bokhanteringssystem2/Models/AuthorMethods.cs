@@ -79,7 +79,7 @@ namespace Bokhanteringssystem2.Models
 
             using (SqlConnection sqlConnection = new SqlConnection("Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=Bokhanteringsdatabas;Integrated Security=True;Pooling=False;Encrypt=True;TrustServerCertificate=False"))
             {
-                string sqlQuery = "SELECT AuthorID, Name FROM Authors";
+                string sqlQuery = "SELECT * FROM Authors";
 
                 using (SqlCommand command = new SqlCommand(sqlQuery, sqlConnection))
                 {
@@ -108,8 +108,104 @@ namespace Bokhanteringssystem2.Models
                     }
                 }
             }
-
             return authorsList;
+        }
+
+        public AuthorDetails GetAuthor(int authorID, out string errorMessage)
+        {
+            errorMessage = string.Empty;
+
+            // skapar och använder koppling till databasen
+            using (SqlConnection sqlConnection = new SqlConnection("Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=Bokhanteringsdatabas;Integrated Security=True;Pooling=False;Encrypt=True;TrustServerCertificate=False"))
+            {
+                string sqlQuery = "SELECT * FROM Authors WHERE AuthorID = @id";
+
+                using (SqlCommand command = new SqlCommand(sqlQuery, sqlConnection))
+                {
+                    command.Parameters.Add("id", SqlDbType.Int).Value = authorID;
+
+                    SqlDataAdapter sqlDataAdapter = new SqlDataAdapter(command);
+
+                    DataSet dataSet = new DataSet();
+
+                    try
+                    {
+                        sqlConnection.Open();
+
+                        // Lägger till en tabell i datasetobjektet och fyller detta med data baserat på selectsatsen
+                        sqlDataAdapter.Fill(dataSet, "Authors");
+
+                        int count = 0;
+
+                        count = dataSet.Tables["Authors"].Rows.Count;
+
+                        AuthorDetails authorDetails = new AuthorDetails();
+
+                        if (count == 1)
+                        {
+                            // Läser ut data från dataset och fyller objekt
+                            authorDetails.AuthorID = Convert.ToInt32(dataSet.Tables["Authors"].Rows[0]["AuthorID"]);
+                            authorDetails.Name = dataSet.Tables["Authors"].Rows[0]["Name"].ToString();
+
+                            return authorDetails;
+                        }
+                        else
+                        {
+                            errorMessage = "No author details is fetched";
+                            return authorDetails;
+                        }
+                        
+                        
+                    }
+                    catch (Exception ex)
+                    {
+                        errorMessage = $"Error retrieving author: {ex.Message}";
+                        return null;
+                    }
+                    finally
+                    {
+                        sqlConnection.Close();
+                    }
+                }
+            }
+        }
+
+        public AuthorDetails UpdateAuthor (AuthorDetails authorDetails, out string errorMessage)
+        {
+            errorMessage = string.Empty;
+
+            using (SqlConnection sqlConnection = new SqlConnection("Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=Bokhanteringsdatabas;Integrated Security=True;Pooling=False;Encrypt=True;TrustServerCertificate=False"))
+            {
+                string sqlQuery = "UPDATE Authors SET Name = @newName WHERE AuthorID = @id";
+
+                using (SqlCommand command = new SqlCommand(sqlQuery, sqlConnection))
+                {
+                    command.Parameters.AddWithValue("@newName", authorDetails.Name);
+                    command.Parameters.AddWithValue("@id", authorDetails.AuthorID);
+
+                    try
+                    {
+                        sqlConnection.Open(); // Se till att anslutningen är öppen
+                        int rowsAffected = command.ExecuteNonQuery(); // Utför kommandot
+                        Console.WriteLine($"{rowsAffected} row(s) updated");
+
+                        if (rowsAffected > 0)
+                        {
+                            return authorDetails; // Returnerar det uppdaterade objektet
+                        }
+                        else
+                        {
+                            errorMessage = "No rows were updated. Author could not be found.";
+                            return null; // Ingen uppdatering, returnera null
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        errorMessage = $"Error updating author: {ex.Message}";
+                        return null; // Vid fel returnera null
+                    }
+                }
+            }
         }
     }
 }
