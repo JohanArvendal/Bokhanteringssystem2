@@ -20,7 +20,7 @@ namespace Bokhanteringssystem2.Models
             // Skapa koppling mot lokal instans av databas
             using (SqlConnection sqlConnection = new SqlConnection("Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=Bokhanteringsdatabas;Integrated Security=True;Pooling=False;Encrypt=True;TrustServerCertificate=False"))
             {
-                // SQL INSERT fråga
+                // SQL INSERT 
                 string sqlstring = "INSERT INTO Books (Title, PublishedYear, AuthorID) VALUES (@Title, @PublishedYear, @AuthorID)";
 
                 using (SqlCommand command = new SqlCommand(sqlstring, sqlConnection))
@@ -73,13 +73,13 @@ namespace Bokhanteringssystem2.Models
                         BookDetails bookDetails = new BookDetails
                         {
                             BookID = Convert.ToInt32(dataSet.Tables["Books"].Rows[i]["BookID"]),
-                            Title = dataSet.Tables["Books"].Rows[i]["Title"]?.ToString() ?? "Unknown Title",  // Uppdaterad här
+                            Title = dataSet.Tables["Books"].Rows[i]["Title"]?.ToString() ?? "Unknown Title",  
                             PublishedYear = Convert.ToInt32(dataSet.Tables["Books"].Rows[i]["PublishedYear"]),
                             AuthorID = Convert.ToInt32(dataSet.Tables["Books"].Rows[i]["AuthorID"]),
                             Author = new AuthorDetails
                             {
                                 AuthorID = Convert.ToInt32(dataSet.Tables["Books"].Rows[i]["AuthorID"]),
-                                Name = dataSet.Tables["Books"].Rows[i]["AuthorName"]?.ToString() ?? "Unknown Author" // Uppdaterad här
+                                Name = dataSet.Tables["Books"].Rows[i]["AuthorName"]?.ToString() ?? "Unknown Author" 
                             }
                         };
 

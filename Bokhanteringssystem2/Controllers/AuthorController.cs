@@ -98,41 +98,28 @@ namespace Bokhanteringssystem2.Controllers
         }
 
         [HttpGet]
-        public IActionResult SelectAuthor(int authorID)
+        public IActionResult UpdateAuthor(int authorID)
         {
+            AuthorDetails authorDetails = new AuthorDetails();
             AuthorMethods authorMethods = new AuthorMethods();
-            string errorMessage;
+            string errorMessage = "";
+            authorDetails = authorMethods.GetAuthor(authorID, out errorMessage);
 
-            var author = authorMethods.GetAuthor(authorID, out errorMessage);
             ViewBag.Error = errorMessage;
 
-            return View(author);
+            return View(authorDetails);
         }
 
         [HttpPost]
         public IActionResult UpdateAuthor(AuthorDetails authorDetails)
         {
-            // Validera input
-            if (authorDetails == null || string.IsNullOrEmpty(authorDetails.Name) || authorDetails.AuthorID <= 0)
-            {
-                ViewBag.Error = "Invalid author details. Please provide a valid Author ID and Name.";
-                return View("SelectAuthor", authorDetails);
-            }
-
             AuthorMethods authorMethods = new AuthorMethods();
-            string errorMessage;
-            AuthorDetails updatedAuthor = authorMethods.UpdateAuthor(authorDetails, out errorMessage);
+            string errorMessage = "";
+            authorDetails = authorMethods.UpdateAuthor(authorDetails, out errorMessage);
 
-            // Kontrollera om uppdateringen lyckades
-            if (!string.IsNullOrEmpty(errorMessage))
-            {
-                ViewBag.Error = errorMessage;
-                return View("SelectAuthor", authorDetails);
-            }
+            ViewBag.error = errorMessage;
 
-            // Visa ett framgångsmeddelande
-            ViewBag.Success = "Author updated successfully.";
-            return View("SelectAuthor", updatedAuthor);
+            return View(authorDetails);
         }
 
 

@@ -6,6 +6,6 @@
         public int AuthorID { get; set; }
         public string? Name { get; set; }
 
-        public List<BookDetails> Books { get; set; } = new List<BookDetails>(); // Navigationsegenskap
+        //public List<BookDetails> Books { get; set; } = new List<BookDetails>(); // Navigationsegenskap
     }
 }
