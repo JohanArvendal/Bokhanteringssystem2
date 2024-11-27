@@ -122,6 +122,48 @@ namespace Bokhanteringssystem2.Controllers
             return View(authorDetails);
         }
 
+        // Visar bekräftelsevy för att radera författaren
+        [HttpGet]
+        public IActionResult DeleteAuthor(int authorID)
+        {
+            AuthorMethods authorMethods = new AuthorMethods();
+            string errorMessage = "";
+            AuthorDetails authorDetails = authorMethods.GetAuthor(authorID, out errorMessage);
 
+            if (authorDetails == null)
+            {
+                ViewBag.Error = "Author not found.";
+                return View("Error"); // Visa en error-vy om författaren inte finns
+            }
+
+            if (!string.IsNullOrEmpty(errorMessage))
+            {
+                ViewBag.Error = errorMessage;
+                return View("Error");
+            }
+
+            return View(authorDetails); // Visa vyn för att bekräfta raderingen
+        }
+
+
+        // Radera författare efter att användaren har bekräftat
+        [HttpPost]
+        public IActionResult DeleteAuthorConfirmed(int authorID)
+        {
+            AuthorMethods authorMethods = new AuthorMethods();
+            string errorMessage = "";
+            bool isDeleted = authorMethods.DeleteAuthor(authorID, out errorMessage);
+
+            if (isDeleted)
+            {
+                TempData["SuccessMessage"] = "Author successfully deleted.";
+            }
+            else
+            {
+                TempData["ErrorMessage"] = errorMessage;
+            }
+
+            return RedirectToAction("SelectAuthors"); // Omdirigera tillbaka till listvyn efter radering
+        }
     }
 }

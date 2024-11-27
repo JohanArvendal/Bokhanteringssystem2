@@ -207,5 +207,43 @@ namespace Bokhanteringssystem2.Models
                 }
             }
         }
+
+        public bool DeleteAuthor(int authorID, out string errorMessage)
+        {
+            errorMessage = string.Empty;
+
+            using (SqlConnection sqlConnection = new SqlConnection("Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=Bokhanteringsdatabas;Integrated Security=True;Pooling=False;Encrypt=True;TrustServerCertificate=False"))
+            {
+                string sqlQuery = "DELETE FROM Authors WHERE AuthorID = @id";
+
+                using (SqlCommand command = new SqlCommand(sqlQuery, sqlConnection))
+                {
+                    command.Parameters.Add("@id", SqlDbType.Int).Value = authorID;
+
+                    try
+                    {
+                        sqlConnection.Open(); // Se till att anslutningen är öppen
+                        int rowsAffected = command.ExecuteNonQuery(); // Utför kommandot
+
+                        if (rowsAffected > 0)
+                        {
+                            Console.WriteLine($"{rowsAffected} row(s) deleted");
+                            return true; // Operationen lyckades
+                        }
+                        else
+                        {
+                            errorMessage = "No rows were deleted. Author could not be found.";
+                            return false; // Ingen rad raderades, returnera false
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        errorMessage = $"Error deleting author: {ex.Message}";
+                        return false; // Vid fel returnera false
+                    }
+                }
+            }
+        }
+
     }
 }
